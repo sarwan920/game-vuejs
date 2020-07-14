@@ -22,11 +22,13 @@ new Vue({
                 alert("You lost and Monster Win");
                 this.gameIsRunning=false;
                 this.playerHealth=100;
+                this.monsterHealth=100;
             }
             if(this.monsterHealth<15){
                 alert("You Won and Monster Lost");
                 this.gameIsRunning=false;
                 this.monsterHealth=100;
+                this.playerHealth=100;
             }
         },
         giveUp: function(){
