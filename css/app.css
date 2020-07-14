@@ -62,11 +62,11 @@ button {
 }
 
 #attack {
-    background-color: #f0a29b;
+    background-color: #eb6558;
 }
 
 #attack:hover {
-    background-color: #eb9148;
+    background-color: #ec4223;
 }
 
 #special-attack {
