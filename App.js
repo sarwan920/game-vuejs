@@ -29,9 +29,7 @@ new Vue({
                 return;
             }
 
-            damage = this.calculateDamage(5, 12);
-            this.playerHealth -= damage;
-            this.checkWin();
+            this.monsterAttack();
 
 
 
@@ -39,11 +37,22 @@ new Vue({
 
         //function to use some special power to use some special attack
         specialAttack: function () {
+            var damage= this.calculateDamage(10,20);
+            this.monsterHealth-=damage;
+            if(this.checkWin()){
+                return;
+            }
+
+            this.monsterAttack();
+
 
         },
         //function to heal your self
         heal: function () {
-
+            
+            var heal=this.calculateDamage(3,10);
+            this.playerHealth+=heal;
+            
         },
 
         //function for giving up on game
@@ -53,7 +62,11 @@ new Vue({
             this.playerHealth = 100;
             alert("You Have Lost! Try again");
         },
-
+        monsterAttack:function () {
+            damage=this.calculateDamage(5,12);
+            this.playerHealth-=damage; 
+            this.checkWin();
+        },
         //this fucntion calculates damage and returns it to attack fucntion
         calculateDamage: function (min, max) {
             return Math.max(Math.floor(Math.random() * max) + 1, min);
