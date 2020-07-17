@@ -1,66 +1,86 @@
 new Vue({
     el: '#app',
     data: {
-        playerHealth:100,
-        monsterHealth:100,
-        gameIsRunning:false
+        playerHealth: 100,
+        monsterHealth: 100,
+        gameIsRunning: false
     },
     methods: {
 
         //this fucntion executes when we click on start game button
-        startGame: function() {
-            this.gameIsRunning=true;
-            this.playerHealth=100;
-            this.monsterHealth=100;
+        startGame: function () {
+            this.gameIsRunning = true;
+            this.playerHealth = 100;
+            this.monsterHealth = 100;
         },
 
 
         //function to attack normally
-        attack:function(){
+        attack: function () {
 
             // console.log("attacked");
-            
-            var max=10;
-            var min =3;
 
-            var damage= Math.max(Math.floor(Math.random() * max) +1,min) ;
-            this.monsterHealth =this.monsterHealth-damage;
-            
-            if(this.monsterHealth<=0){
-                alert("You won!");
-                this.gameIsRunning=false;
+
+
+            var damage = this.calculateDamage(3, 10)
+            this.monsterHealth -= damage;
+
+            if (this.checkWin()) {
                 return;
             }
 
+            damage = this.calculateDamage(5, 12);
+            this.playerHealth -= damage;
+            this.checkWin();
 
-            max=12;
-            min=5;
-            damage= Math.max(Math.floor(Math.random() * max) +1,min) ;
-            this.playerHealth=this.playerHealth-damage;
 
-            if(this.playerHealth<=0){
-                alert('You lost!');
-                this.gameIsRunning=false;
-            }
-             
-            
+
         },
 
         //function to use some special power to use some special attack
-        specialAttack:function(){
+        specialAttack: function () {
 
         },
         //function to heal your self
-        heal:function(){
+        heal: function () {
 
         },
 
         //function for giving up on game
-        giveUp: function(){
-            this.gameIsRunning=false;
-            this.monsterHealth=100;
-            this.playerHealth=100;
+        giveUp: function () {
+            this.gameIsRunning = false;
+            this.monsterHealth = 100;
+            this.playerHealth = 100;
             alert("You Have Lost! Try again");
+        },
+
+        //this fucntion calculates damage and returns it to attack fucntion
+        calculateDamage: function (min, max) {
+            return Math.max(Math.floor(Math.random() * max) + 1, min);
+        },
+
+
+        // this fucntion checks if we won the game or lost
+        checkWin: function () {
+            if (this.monsterHealth <= 0) {
+                if (confirm("You won! Start new Game?")) {
+                    this.startGame();
+
+                } else {
+                    this.gameIsRunning = false;
+                }
+
+                return true;
+            } else if (this.playerHealth <= 0) {
+                if (confirm("You lost! Start new Game?")) {
+                    this.startGame();
+                } else {
+                    this.gameIsRunning = false;
+                }
+                return true;
+            }
+            return false;
+
         }
     }
 })
