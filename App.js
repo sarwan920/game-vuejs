@@ -50,8 +50,14 @@ new Vue({
         //function to heal your self
         heal: function () {
             
-            var heal=this.calculateDamage(3,10);
-            this.playerHealth+=heal;
+            if(this.playerHealth<=90)
+            {
+                this.playerHealth+=10;
+                
+            }else{
+                this.playerHealth=100;
+            }
+            this.monsterAttack();
             
         },
 
